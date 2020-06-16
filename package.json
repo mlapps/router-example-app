@@ -1,0 +1,7 @@
+{
+  "name": "com.metrological.app.RouterExample",
+  "description": "Router Example",
+  "dependencies": {
+    "wpe-lightning-sdk": "github:rdkcentral/Lightning-SDK#feature/router"
+  }
+}

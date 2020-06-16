@@ -1,0 +1,30 @@
+{
+  "appSettings": {
+    "stage": {
+      "clearColor": "0x00000000",
+      "useImageWorker": true
+
+    },
+    "debug": false,
+    "imageQuality": 50,
+    "stream": "mp4",
+    "logQL": false,
+    "storeSameHash": false,
+    "autoPageFocusRestore": true
+  },
+  "platformSettings": {
+    "log": true,
+    "path": "./static",
+    "disableTransitions": false,
+    "showVersion": false,
+    "inspector": true,
+    "backtracking": true,
+    "gcOnUnload": true,
+    "lazyCreate": true,
+    "lazyDestroy": true,
+    "reuseInstance": true,
+    "logRoute": true,
+    "imageServerUrl": "//cdn.metrological.com/image",
+    "proxyUrl": "//cdn.metrological.com/proxy"
+  }
+}

@@ -22,7 +22,7 @@
     "gcOnUnload": true,
     "lazyCreate": true,
     "lazyDestroy": true,
-    "reuseInstance": true,
+    "reuseInstance": false,
     "logRoute": true,
     "imageServerUrl": "//cdn.metrological.com/image",
     "proxyUrl": "//cdn.metrological.com/proxy"

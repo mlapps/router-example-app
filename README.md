@@ -25,22 +25,24 @@ The routhor provides an easy api that helps you create an url driven (routed) ap
 By default the loading goes via the hash since we don’t want to encounter a page refresh when a navigation to a route starts. This default behaviour is overridable per platform.
 
 The router can work with 2 types of data,
-a child of the Lightning.Component class or a function, the router accepts one Component and multiple function per route. One of the key features is configurable lazy creation and destroy support (runtime) this serves as a big help on low-end devices with less memory and gpu memory
+a class that extends `Lightning.Component` or a function, the router accepts one Component and multiple function per route. One of the key features is configurable lazy creation and destroy support (runtime) this serves as a big help on low-end devices with less memory and gpu memory
 
 ### Features:
 - [Add routes](#routes)
-- [navigation helper](#navigation-helper)
-- [route driven data providing](#data-providing)
+- [Navigation helper](#navigation-helper)
+- [Route driven data providing](#data-providing)
 - [Dynamic hash value groups](#dynamic-hash-groups)
-- [deeplinking](#deeplinking)
-- [backtracking](#backtracking)
-- [widget communication support](#widget-support)
-- [page transitions](#page-transitions)
-- [history management](#history-management)
-- [route driving function calls](#routed-function-calls)
-- [configurable lazy creation](#lazy-creation)
-- [configurable lazy destroy](#lazy-destroy)
-- [configurable garbage collect](#configurable-texture-garbage-collect)
+- [Deeplinking](#deeplinking)
+- [Backtracking](#backtracking)
+- [Widget communication support](#widget-support)
+- [Page transitions](#page-transitions)
+- [History management](#history-management)
+- [Route driving function calls](#routed-function-calls)
+- [Regular Expression support](#regular-expression-support)
+- [Configurable lazy creation](#lazy-creation)
+- [Configurable lazy destroy](#lazy-destroy)
+- [Configurable garbage collect](#configurable-texture-garbage-collect)
+- [Settings](#settings)
 
 ## Installation:
 
@@ -53,7 +55,7 @@ There are 2 ways you can use the router,
 
 
 ## Routes
-to create a new route we first import the router from the SDK; import {router} from
+to create a new route we first import the router from the SDK; import {router} from 'wpe-lightning-sdk'
 
 next we create a new route, and add a component to it (we will later create an instance by adding it to the lightning render-tree)
 ```js
@@ -80,7 +82,7 @@ Router.route("*", NotFound)
 ``` 
 will show the NotFound component when the app or an external Ui tries to route to an url thats undefined i.e 127.0.0.1:8080/#non/existing/route
 
-####modifiers
+#### modifiers
 By providing an object as third argument to the `route()` function you can control the Router behaviour.
 
 ```js
@@ -194,7 +196,20 @@ data will be made available as properties to the page (tip, use setters)
 
 There is a lot of usefull data available in the url that will be made available to the page.
 
-So, lets say we have an search page with route: "search/:query/:limit" and we navigate to: /search/vikings/50 the router will set the query and limit properties on the page instance:
+So, lets say we have an search page with route: 
+
+```js
+Router.route("search/:query/:limit", Search)
+````
+
+and we navigate to: 
+
+```js
+Router.navigate("/search/vikings/50")
+``` 
+
+the router will set the `query` and limit `properties` on the page instance:
+
 ```js
 class Search extends Lightning.Component{
  set query(v){
@@ -313,6 +328,36 @@ _handleKey(){
 }
 ```
 
+##### Page widget interaction
+
+References to the widgets are made available to the page via the property `.widget` so inside your method you can access them
+
+```js
+this.widgets.menu.doSomething();
+this.widgets.statusbar.updateWifiSignal();
+```
+
+All references are lowercase:
+
+```js
+Widgets:{
+    // accessible via: this.widgets.menu
+    Menu:{
+        type: Menu
+    },
+    // accessible via: this.widgets.notification
+    Notification:{
+        type: Notification
+    },
+    // accessible via: this.widgets.statusbar
+    StatusBar:{
+        type: Status
+    }
+}
+```
+
+
+
 
 ## Page transitions
 
@@ -320,7 +365,7 @@ By default a transition from one page to a new page will be a simple toggle of t
 
 ```js
 pageIn.visible = true;
-pageOut.visible = true;
+pageOut.visible = false;
 ```
 
 You can override this behaviour in a couple of ways: 
@@ -335,6 +380,34 @@ The Router has a couple of default transitions that you can add to your page:
 -  `Transitions.down` will put the new page on `y:-1080` and will do a transition to `y:0`, the old page with do a transition `y:1080`
 -  `Transitions.fade` will do a transition on the new page from `alpha:0` to `alpha:1`
 -  `Transitions.crossFade` will do a transitions on the new page from `alpha:0` to `alpha:1` and a transitions from `alpha:1` to `alpha:0` of the old page
+
+You attach it to a page by adding a `easing()` method to your Page Class and let the
+function return on of the Transitions properties: 
+
+```js
+class Settings extends Lightning.Component {
+    static _template(){
+        return {...}
+    }
+    
+    easing(){
+        return "left";
+    } 
+}
+
+class Player extends Lightning.Component {
+    static _template(){
+        return {...}
+    }
+    
+    easing(){
+        return "crossFade";
+    } 
+}
+
+```
+
+the default transitions will impact both new and the old page (if there is one)
 
 #### custom transitions
 
@@ -401,6 +474,62 @@ The router maintains it’s own history and does not rely on a browser api, all 
 
 Remote control backpress will check if there are routes in history, pop the last off navigate to that route (invoking the page loading process as discussed before)
 
+Some of the Router's functions let you control the history management: 
+
+#### route()
+
+If you want to prevent a route from ending up in history, you can add `preventStorage: true` to arguments
+when you define the routes for the App.
+
+```js
+Router.route("Home/browse/:sectionId", Browse, {preventStorage: true})
+```
+
+By default the router will not store a hash that has been visited multiple times, 
+so if the user is navigating to, 127.0.0.1:8080#home/search twice, it will only end up in the history once. So upon navigating 
+back in history the Router will not load the same page (with same hash) twice. By adding `storeSameHash: true` to the arguments
+the router will store multiple in history (the hash, so: "home/search")
+
+```js
+Router.route("home/search", Search, {storeSameHash: true})
+```
+
+##### Same hash
+
+Let's say we've configured the following route: 
+
+```js
+Router.route("Home/browse/:sectionId", Browse)
+```
+
+Then the Router doesn't consider `Home/browse/1635454"` and `Home/browse/11928374` to be the same route,
+so they both will by default end up in history.
+
+
+##### navigate()
+
+By default the Router will destroy the old Page when you navigate from page A to B, so a navigate from
+a Browse page to Player page via: 
+
+```js
+Router.navigate("home/browse/1223/play/1h55s")
+```
+
+Will remove the `Browse` page from memory, if you want to prevent this in certain situations, you 
+can add a `keepAlive` signal to the navigation arguments object.
+
+```js
+Router.navigate("home/browse/1223/play/1h55s", {keepAlive: true})
+```
+
+
+##### destroy on history step
+
+Another posibility is to configure the Router that it only remove a page from memory when it gets unloaded 
+via a step back in history. You can do this by adding, `"destroyOnHistoryBack":true` to the
+platform settings.
+
+
 ## Routed function calls
 
 You can bind multiple function calls to a route (but only one page component)
@@ -410,6 +539,24 @@ Router.route("settings/hotspots/delete/:hotspotId", ({page, hotspotId})=>{
 })
 ```
 The function will be called when we navigate to i.e settings/hotposts/delete/3
+
+## Regular Expression support
+
+The router has built-in regular expression support so you can add patterns to your route
+to start matching for certain combinations of characters.
+
+Adding regular expression to a route works in addition to the [dynamic hash value groups](#dynamic-hash-groups).
+by adding `${PATTERN/MODIFIERS}` after the dynamic name 
+
+```js
+// this will match #player/1493847
+// but will fail on #player/ah26134
+Router.route("player/:playlistId${/[0-9]{3,8}/i}", Player)
+```
+
+Also, regex patterns are named, and their value will be made available on the Page instance following
+the same rules as [dynamic hash value groups](#dynamic-hash-groups)
+
 
 ## Lazy creation 
 
@@ -432,6 +579,67 @@ Lazy destroy means, when we navigate to a new route we remove the page from the 
 To free up texture memory directly after the old page has been destroyed and not wait for Lightning to start collectionm garbage (texture) you can set the platformsettings flag `gcOnUnload: true`
 
 This will force a texture directly after destroying the page.
+
+## Settings 
+
+The `settings.json` file let's you configure Router behaviour:
+
+```json
+{
+  "appSettings": {
+    "stage": {
+      "clearColor": "0x00000000",
+    },
+    "debug": false,
+  },
+  "platformSettings": {
+    "disableTransitions": false,
+    "backtracking": false,
+    "lazyCreate": true,
+    "lazyDestroy": true,
+    "destroyOnHistoryBack": true,
+    "gcOnUnload": true,
+    "reuseInstance": true
+  }
+}
+```
+
+##### disableTransitions
+This will override all custom page transitions and replace them with a simple visibility toggle:
+
+```json
+pageIn.visible = true;
+pageOut.visibile = false;
+```
+
+##### backtracking 
+
+Configure if the Router needs to do [Backtracing](#backtracking) when a Ui is deeplinking to a route
+
+##### gcOnUnload
+
+Force a texture garbage collect directly after removing the page from the render-tree
+
+##### lazyCreate
+
+If set to `true` the Router will not create instances of the configured pages, but will only create them
+when you navigate to a Route. Setting it to `false` will create all the pages on boot and append
+them to the render-tree
+
+##### lazyDestroy
+
+If set to `true` the Router will remove the page from the render-tree when we navigate away from a Page. 
+Setting it to `false` will keep the instance in memory and appended to the render-tree.
+
+##### destroyOnHistoryBack
+
+This let's you configure if you want to remove pages from memory when the unloading and navigation process
+is driven by a step back in history and `lazyDestroy:false`
+
+
+
+
+
 
 
 

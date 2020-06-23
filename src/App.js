@@ -1,13 +1,15 @@
 // first thing is we import the Router from the SDK
-import {Lightning, Settings, Router} from 'wpe-lightning-sdk';
+import {Lightning, Router} from 'wpe-lightning-sdk';
 // import all the data providers
-import provider from "./lib/data-provider";
+// import provider from "./lib/data-provider";
 // import all the configured routes
-import routes from "./lib/routes";
+// import routes from "./lib/routes_old";
 // import all the configured widgets
-import widgets from "./lib/widgets";
+// import widgets from "./lib/widgets";
 // import the actual Widget Components
 import {Notification, Menu} from "./widgets";
+
+import routes from './routes.js'
 
 export default class App extends Lightning.Component {
     // define which fonts are used in the App
@@ -24,9 +26,11 @@ export default class App extends Lightning.Component {
      * - widgets function (that will register all widgets we want to show per route)
      */
     _setup() {
-        Router.startRouter({
-            appInstance: this, provider, routes, widgets
-        });
+        // removed appInstance (not needed anymore, apart from that this way of starting still works)
+        // Router.startRouter({
+        //     provider, routes, widgets
+        // });
+        Router.startRouter(routes)
     }
 
     /**

@@ -22,7 +22,7 @@ export default () => {
     // when the promise fulfills show the new page.
     // page instance and url data will be mae available
     // to the callback.
-    Router.on("home/search/:keyword", ({page, keyword})=>{
+    Router.on("home/search/:keyword", (page, {keyword})=>{
         return doSearch(keyword).then((results)=>{
             page.results = results;
         });
@@ -31,13 +31,13 @@ export default () => {
     // .before() will first do the request, current page stays visible
     // when the request resolves the router will show the new page
     // and hide old.
-    Router.after("home/search/:keyword/:amount/:filterId", ({page, keyword, amount, filterId})=>{
+    Router.after("home/search/:keyword/:amount/:filterId", (page, {keyword, amount, filterId})=>{
         return doSearch(keyword).then((results)=>{
             page.results = results;
         });
     });
 
-    Router.on("account/details/:action",({page, action})=>{
+    Router.on("account/details/:action",(page, {action})=>{
         // we fake that a asyn request went wrong and we're
         // rejecting the Promise.
         return new Promise((resolve, reject)=>{

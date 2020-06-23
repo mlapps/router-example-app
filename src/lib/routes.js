@@ -52,7 +52,7 @@ export default () =>{
     // You can bind multiple functions to a route, these will be called when
     // the app navigates to the corresponding route. Url data will be passed as
     // an argument to the callback
-    Router.route("home/search/:keyword", ({application, keyword})=>{
+    Router.route("home/search/:keyword", (application, {keyword})=>{
         console.log("respond to this route");
         console.log("do something with: ", application);
         console.log("or param: ", keyword);

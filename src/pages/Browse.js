@@ -12,10 +12,10 @@ export default class Browse extends Lightning.Component{
                 }
             },
             Details: {
-                x: 960, y: 590, mount: 0.5, alpha: 0.5,
+                x: 960, y: 610, mount: 0.5, alpha: 0.5,
                 text: {
-                    fontSize: 27, textColor: 0xdd000000,
-                    text: 'press up to navigate to the Player page'
+                    fontSize: 27, textColor: 0xdd000000, lineHeight:35,
+                    text: 'press up to navigate to the Player page\npress right to navigate to account page'
                 }
             }
         }
@@ -28,6 +28,10 @@ export default class Browse extends Lightning.Component{
     _handleUp(){
         const videoId = Math.floor(Math.random()*300000)+800000;
         Router.navigate(`discover/player/${videoId}`);
+    }
+
+    _handleRight(){
+        Router.navigate('account');
     }
 
     easing(){

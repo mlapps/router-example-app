@@ -1,11 +1,7 @@
 // first thing is we import the Router from the SDK
-import {Lightning, Settings, Router} from 'wpe-lightning-sdk';
-// import all the data providers
-import provider from "./lib/data-provider";
+import {Lightning, Router} from 'wpe-lightning-sdk';
 // import all the configured routes
 import routes from "./lib/routes";
-// import all the configured widgets
-import widgets from "./lib/widgets";
 // import the actual Widget Components
 import {Notification, Menu} from "./widgets";
 
@@ -15,7 +11,6 @@ export default class App extends Lightning.Component {
         return [
         ];
     }
-
     /**
      * First thing we do (in the setup hook) is start the Router and provide with:
      * - appInstance (so we have a reference to this App)
@@ -24,9 +19,7 @@ export default class App extends Lightning.Component {
      * - widgets function (that will register all widgets we want to show per route)
      */
     _setup() {
-        Router.startRouter({
-            appInstance: this, provider, routes, widgets
-        });
+        Router.startRouter(routes, this);
     }
 
     /**

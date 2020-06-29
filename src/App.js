@@ -143,6 +143,14 @@ export default class App extends Lightning.Component {
     }
 
     /**
+     * You must declare _handleBack in your app so the
+     * router can override the behaviour
+     */
+    _handleBack(){
+        return false;
+    }
+
+    /**
      * Delegate focus to the Active page returned by the Router
      */
     _getFocused() {

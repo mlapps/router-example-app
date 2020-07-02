@@ -15,7 +15,7 @@ export default class Player extends Lightning.Component{
                 x: 960, y: 690, mount: 0.5, alpha: 0.5,
                 text: {
                     fontSize: 27, textColor: 0xaa000000, textAlign:'center', lineHeight:35,
-                    text: 'press enter to show notification\npress down to navigate to a non existing page\npress up to navigate to Search with data-provider'
+                    text: 'press enter to show notification\npress down to navigate to a non existing page\npress up to navigate to Search with data-provider\n press right to reload this page with different params'
                 }
             }
         }
@@ -35,13 +35,18 @@ export default class Player extends Lightning.Component{
         Router.navigate("this/route/does/not/exist");
     }
 
+    _handleRight(){
+        const videoId = Math.floor(Math.random()*300000)+800000;
+        Router.navigate(`discover/player/${videoId}`);
+    }
+
     /**
      * References to all the widgets are available via:
      * this.widgets
      * @private
      */
     _handleEnter(){
-        this.widgets.notification.notify(`Error while playing: ${this._videoId}`);
+        this.widgets.notification.notify(`Widget notification for videoId: ${this._videoId}`);
     }
 
     // dynamic hash data will be automatically set as property

@@ -15,7 +15,7 @@ export default class Home extends Lightning.Component{
                 x: 960, y: 590, mount: 0.5, alpha: 0.5,
                 text: {
                     fontSize: 27, textColor: 0xdd000000,
-                    text: 'press up to go to the player page'
+                    text: 'press up to go to the browse page'
                 }
             }
         }

@@ -113,7 +113,7 @@ export default class App extends Lightning.Component {
                 // this will delegate the focus back to page we got it from
                 // on every key that is not being handled by the widget.
                 _handleKey(){
-                    Router.restoreFocus();
+                    Router.handleRemote("page");
                 }
             }
         ];

@@ -25,7 +25,7 @@ export default class Account extends Lightning.Component{
     }
 
     _handleLeft(){
-        Router.focusWidget("Menu");
+        Router.handleRemote("widget","Menu");
     }
 
     _handleUp(){

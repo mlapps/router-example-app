@@ -25,7 +25,7 @@ export default class Search extends Lightning.Component{
     }
 
     _handleLeft(){
-        Router.focusWidget("Menu");
+        Router.handleRemote("widget", "Menu");
     }
 
     _handleRight(){

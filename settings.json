@@ -17,14 +17,12 @@
     "path": "./static",
     "disableTransitions": false,
     "showVersion": false,
-    "inspector": true,
-    "backtracking": true,
+    "inspector": false,
+    "backtrack": false,
     "gcOnUnload": true,
     "lazyCreate": true,
     "lazyDestroy": true,
     "reuseInstance": false,
-    "logRoute": true,
-    "imageServerUrl": "//cdn.metrological.com/image",
-    "proxyUrl": "//cdn.metrological.com/proxy"
+    "logRoute": true
   }
 }

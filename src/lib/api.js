@@ -1,5 +1,5 @@
 export const getToken = async () =>{
-    return Math.floor(Math.random()*4000) + 2000;
+    return Promise.resolve("1029387549");
 }
 
 export const doSearch = (keyword)=>{

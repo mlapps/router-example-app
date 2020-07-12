@@ -66,7 +66,7 @@ export default {
             // you can add a set keyword(){...} and invoke logic if needed.
             path: 'home/search/:keyword',
             component: Search,
-            on({page, keyword }) {
+            on(page, {keyword }) {
                 return doSearch(keyword).then((results)=>{
                     page.results = results;
                 })
@@ -102,11 +102,10 @@ export default {
             widgets: ['Notification']
         },
         {
-            path: 'home',
-            hook(application) {
-                console.log("respond to this route");
-                console.log("do something with: ", application);
-                console.log("or param: ");
+            path: 'discover/player/:videoId{/[0-9a-z]{2,12}/ig}',
+            hook(page, {videoId}) {
+                console.log("You can use:", page);
+                console.log("or do something with: ", videoId);
             },
         },
         {

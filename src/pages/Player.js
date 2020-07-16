@@ -57,7 +57,7 @@ export default class Player extends Lightning.Component{
         this.tag("Label").text = `Player page \nvideoId: ${v}`;
     }
 
-    easing(){
+    pageTransition(){
         return "crossFade";
     }
 }

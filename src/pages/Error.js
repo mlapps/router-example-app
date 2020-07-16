@@ -38,7 +38,7 @@ ${error.toString()}`
         this.tag("Label").text = errorMessage;
     }
 
-    easing(){
+    pageTransition(){
         return "up";
     }
 }

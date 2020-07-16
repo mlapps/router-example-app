@@ -34,7 +34,7 @@ export default class Browse extends Lightning.Component{
         Router.navigate('account');
     }
 
-    easing(){
+    pageTransition(){
         return "fade";
     }
 

@@ -30,7 +30,7 @@ export default class Settings extends Lightning.Component{
     }
 
     // https://github.com/rdkcentral/Lightning-SDK/blob/feature/router/docs/plugins/router.md#page-transitions
-    easing(){
+    pageTransition(){
         return "down";
     }
 

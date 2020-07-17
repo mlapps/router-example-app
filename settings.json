@@ -18,11 +18,13 @@
     "disableTransitions": false,
     "showVersion": false,
     "inspector": false,
-    "backtrack": false,
-    "gcOnUnload": true,
-    "lazyCreate": true,
-    "lazyDestroy": true,
-    "reuseInstance": false,
-    "logRoute": true
+    "router": {
+      "backtrack": false,
+      "gcOnUnload": true,
+      "lazyCreate": true,
+      "lazyDestroy": true,
+      "reuseInstance": false,
+      "logRoute": true
+    }
   }
 }

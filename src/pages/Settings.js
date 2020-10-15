@@ -1,4 +1,4 @@
-import {Lightning, Router} from "wpe-lightning-sdk";
+import {Lightning, Router} from "@lightningjs/sdk";
 
 export default class Settings extends Lightning.Component{
     static _template(){
@@ -19,6 +19,10 @@ export default class Settings extends Lightning.Component{
                 }
             }
         }
+    }
+
+    set title(v){
+        console.log("title:", v)
     }
 
     _handleUp(){

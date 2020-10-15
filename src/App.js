@@ -1,5 +1,5 @@
 // first thing is we import the Router from the SDK
-import {Router} from 'wpe-lightning-sdk';
+import {Router} from '@lightningjs/sdk';
 // import all the configured routes
 import routes from "./lib/routes";
 // import the actual Widget Components
@@ -22,15 +22,16 @@ export default class App extends Router.App{
 
     static _template(){
         return {
-            // we must extend the base-class template
-            // if we want to provide Widgets.
             ...super._template(),
-
             Widgets:{
+
+                // this hosts all the widgets
                 Menu:{
+
                     type: Menu
                 },
                 Notification:{
+
                     type: Notification
                 }
             }

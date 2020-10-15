@@ -2,6 +2,6 @@
   "name": "com.metrological.app.RouterExample",
   "description": "Router Example",
   "dependencies": {
-    "wpe-lightning-sdk": "github:rdkcentral/Lightning-SDK"
+    "@lightningjs/sdk": "^3.0.0"
   }
 }

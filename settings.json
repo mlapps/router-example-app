@@ -16,7 +16,7 @@
     "log": true,
     "path": "./static",
     "disableTransitions": false,
-    "showVersion": false,
+    "showVersion": true,
     "inspector": false,
     "router": {
       "backtrack": false,
@@ -24,6 +24,7 @@
       "lazyCreate": true,
       "lazyDestroy": true,
       "reuseInstance": false,
+      "numberNavigation": false,
       "logRoute": true
     }
   }

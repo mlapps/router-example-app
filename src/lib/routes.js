@@ -8,7 +8,8 @@ import {
 
 export default {
     // bootComponent: Boot,
-    boot: ()=>{
+    boot: (params)=>{
+        console.log(params)
         return new Promise((resolve, reject)=>{
             getToken().then((token)=>{
                 resolve();

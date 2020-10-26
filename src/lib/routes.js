@@ -2,12 +2,11 @@ import { getToken, doSearch } from "./api"
 
 // we import all the pages that we want to add to our app
 import {
-    Home, Browse, Player, Search, Settings, Account, NotFound, Error, Boot
+    Home, Browse, Player, Search, Settings, Account, NotFound, Error
 } from '../pages';
 
 
 export default {
-    // bootComponent: Boot,
     boot: (params)=>{
         console.log(params)
         return new Promise((resolve, reject)=>{

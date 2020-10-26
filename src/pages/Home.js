@@ -1,4 +1,4 @@
-import {Lightning, Router, Utils} from "@lightningjs/sdk";
+import {Lightning, Router} from "@lightningjs/sdk";
 
 export default class Home extends Lightning.Component{
     static _template(){
@@ -19,9 +19,6 @@ export default class Home extends Lightning.Component{
                 }
             }
         }
-    }
-
-    _init(){
     }
 
     set persist(args){

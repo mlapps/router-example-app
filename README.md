@@ -3,8 +3,12 @@
 This provides a detailed explanation on how to work with the Page Router.
 First you need to get the app up and running: 
 
+##### questions?
 
-#### Documentation 
+Feel free to ask them at: https://forum.lightningjs.io/
+
+
+##### Documentation 
 
 https://rdkcentral.github.io/Lightning-SDK/#/plugins/router/index
 

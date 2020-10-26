@@ -54,4 +54,8 @@ export default class App extends Router.App{
         );
         return states;
     }
+
+    _handleAppClose(){
+        console.log("Show exit dialogue")
+    }
 }

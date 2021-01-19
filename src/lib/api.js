@@ -5,8 +5,6 @@ export const getToken = async () =>{
 export const doSearch = (keyword)=>{
     // we fake some search request here
     return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve([1,2,3]);
-        }, 1200)
+        resolve();
     })
 }

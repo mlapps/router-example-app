@@ -22,20 +22,30 @@ export default class Error extends Lightning.Component{
         console.log("focus error page")
     }
 
-    set error(obj){
-        const {page, error} = obj;
-        console.log(page, error);
 
-        const errorMessage = `
+    set params(args){
+        const {request} = args;
+        this.error = request;
+    }
+
+
+    set error(obj){
+        if(!obj.page){
+            this.tag("Label").text = obj.error;
+        }else{
+            const {page, error, hash, route} = obj;
+            const errorMessage = `
 error while loading page: ${page.constructor.name}
 press enter to navigate to home
 --
-loaded via hash: ${page[Symbol.for("hash")]}
-resulted in route: ${page[Symbol.for("route")]}
+loaded via hash: ${hash}
+resulted in route: ${route.path}
 --
 ${error.toString()}`
 
-        this.tag("Label").text = errorMessage;
+            this.tag("Label").text = errorMessage;
+        }
+
     }
 
     pageTransition(){

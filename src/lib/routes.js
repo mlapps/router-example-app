@@ -66,7 +66,7 @@ export default {
             // you can add a set keyword(){...} and invoke logic if needed.
             path: 'home/search/:keyword',
             component: Search,
-            on(page, {keyword }) {
+            before(page, {keyword }) {
                 return doSearch(keyword).then((results)=>{
                     page.results = results;
                 })
@@ -90,7 +90,7 @@ export default {
         {
             path: 'home/search/:keyword/:amount/:filterId',
             component: Search,
-            after({page, keyword, amount, filterId}) {
+            after(page, {keyword, amount, filterId}) {
                 return doSearch(keyword, amount, filterId).then((results)=>{
                     page.results = results;
                 });
@@ -99,14 +99,11 @@ export default {
         {
             path: 'discover/player/:videoId{/[0-9a-z]{2,12}/ig}',
             component: Player,
-            widgets: ['Notification']
-        },
-        {
-            path: 'discover/player/:videoId{/[0-9a-z]{2,12}/ig}',
+            widgets: ['Notification'],
             hook(page, {videoId}) {
                 console.log("You can use:", page);
                 console.log("or do something with: ", videoId);
-            },
+            }
         },
         {
             path: '*',
@@ -116,5 +113,8 @@ export default {
             path: '!',
             component: Error
         }
-    ]
+    ],
+    beforeEachRoute: async(from ,to)=>{
+        return true;
+    }
 }

@@ -49,13 +49,11 @@ export default class Player extends Lightning.Component{
         this.widgets.notification.notify(`Widget notification for videoId: ${this._videoId}`);
     }
 
-    // dynamic hash data will be automatically set as property
-    // on the instance of the page
-
-    set videoId(v){
-        this._videoId = v;
-        this.tag("Label").text = `Player page \nvideoId: ${v}`;
+    _onUrlParams(args){
+        this._videoId = args.videoId;
+        this.tag("Label").text = `Player page \nvideoId: ${args.videoId}`;
     }
+
 
     pageTransition(){
         return "crossFade";

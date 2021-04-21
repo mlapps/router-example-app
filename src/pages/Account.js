@@ -38,7 +38,7 @@ export default class Account extends Lightning.Component{
                             mountX: 1, x: 1920, mountY: 0.5, y: 540,
                             Label: {
                                 mountY: 0.5, y: 24,
-                                text: {text: "Search with different keyword", fontFace: "Regular", textAlign: "right", wordWrapWidth: 300, lineHeight: 48}
+                                text: {text: "Search with data-provider", fontFace: "Regular", textAlign: "right", wordWrapWidth: 300, lineHeight: 48}
                             },
                             Arrow: {
                                 flexItem: {marginRight: 50, marginLeft: 20},

@@ -1,5 +1,5 @@
 // first thing is we import the Router from the SDK
-import {Router} from '@lightningjs/sdk';
+import {Router,Utils} from '@lightningjs/sdk';
 // import all the configured routes
 import routes from "./lib/routes";
 // import the actual Widget Components
@@ -9,6 +9,8 @@ export default class App extends Router.App{
     // define which fonts are used in the App
     static getFonts() {
         return [
+            {family: 'Bold', url: Utils.asset('fonts/LondrinaSolid-Regular.ttf'), descriptors: {}},
+            {family: 'Regular', url: Utils.asset('fonts/Fresca-Regular.ttf'), descriptors: {}}
         ];
     }
     /**

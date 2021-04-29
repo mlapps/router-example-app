@@ -2,7 +2,7 @@ import { getToken, doSearch } from "./api"
 
 // we import all the pages that we want to add to our app
 import {
-    Home, Browse, Player, Search, Settings, Account, NotFound, Error
+    Home, Boot, Browse, Player, Search, Settings, Account, NotFound, Error
 } from '../pages';
 
 
@@ -112,6 +112,10 @@ export default {
         {
             path: '!',
             component: Error
+        },
+        {
+            path: '$',
+            component: Boot
         }
     ],
     beforeEachRoute: async(from ,to)=>{

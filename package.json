@@ -2,6 +2,6 @@
   "name": "com.metrological.app.RouterExample",
   "description": "Router Example",
   "dependencies": {
-    "@lightningjs/sdk": "git+ssh://git@github.com/rdkcentral/Lightning-SDK.git#feature/router"
+    "@lightningjs/sdk": "4.6.0"
   }
 }

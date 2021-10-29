@@ -33,7 +33,6 @@ export default class App extends Router.App{
                     type: Menu
                 },
                 Notification:{
-
                     type: Notification
                 }
             }
@@ -58,6 +57,6 @@ export default class App extends Router.App{
     }
 
     _handleAppClose(){
-        console.log("Show exit dialogue")
+        this.application.closeApp();
     }
 }

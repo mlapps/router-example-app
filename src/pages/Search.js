@@ -1,5 +1,4 @@
 import {Lightning, Router, Utils} from "@lightningjs/sdk";
-
 export default class Search extends Lightning.Component{
     static _template(){
         return {
@@ -71,11 +70,19 @@ export default class Search extends Lightning.Component{
         }
     }
 
-    _init() {
-        this.application.on("blurContent", ({amount, scale})=> {
+    _construct() {
+        this.__blurTransition = ({amount,scale}) => {
             this.tag("Blur").setSmooth("amount", amount)
             this.tag("Blur").setSmooth("scale", scale, {duration: 0.3, timingFunction: 'cubic-bezier(0.17, 0.9, 0.32, 1.3)'})
-        })
+        }
+    }
+
+    _init() {
+        this.application.on("blurContent", this.__blurTransition)
+    }
+
+    _detach() {
+        this.application.off("blurContent", this.__blurTransition)
     }
 
     _handleUp(){

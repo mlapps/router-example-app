@@ -1,4 +1,4 @@
-import {Lightning, Router, Utils} from "@lightningjs/sdk";
+import { Lightning, Router, Utils, Accessibility} from "@lightningjs/sdk";
 
 export default class Home extends Lightning.Component{
     static _template(){
@@ -32,11 +32,27 @@ export default class Home extends Lightning.Component{
         console.log("we received data:", args);
     }
 
+    _init() {
+        // Demo for announcer's setupTimers method and its args focusDebounce time
+        Accessibility.Announcer.setupTimers({ focusDebounce: 5000, focusChangeTimeout :2000})
+    }
+
     _handleUp(){
         Router.navigate("home/browse/adventure");
     }
 
     pageTransition(){
         return "up";
+    }
+
+    //default announces when visting the page
+    get title() {
+        return 'Home'
+    }
+    get announce() {
+        return 'Home page'
+    }
+    get announceContext() {
+        return 'Welcome to Router app'
     }
 }

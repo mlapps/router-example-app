@@ -53,5 +53,14 @@ export default class Browse extends Lightning.Component{
     pageTransition(){
         return "up";
     }
+    get title() {
+        return 'browse'
+    }
+    get announce() {
+        return 'browse page'
+    }
+    get announceContext() {
+        return 'Press UP or DOWN to test browse methods'
+    }
 
 }

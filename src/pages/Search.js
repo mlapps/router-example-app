@@ -1,4 +1,4 @@
-import {Lightning, Router, Utils} from "@lightningjs/sdk";
+import {Lightning, Router, Utils, Accessibility, Registry} from "@lightningjs/sdk";
 
 export default class Search extends Lightning.Component{
     static _template(){
@@ -76,6 +76,7 @@ export default class Search extends Lightning.Component{
             this.tag("Blur").setSmooth("amount", amount)
             this.tag("Blur").setSmooth("scale", scale, {duration: 0.3, timingFunction: 'cubic-bezier(0.17, 0.9, 0.32, 1.3)'})
         })
+
     }
 
     _handleUp(){
@@ -84,6 +85,16 @@ export default class Search extends Lightning.Component{
 
     _handleLeft(){
         Router.focusWidget("Menu");
+    }
+
+    _handleDown(){
+        //Demo for announcer plugin's method speak argument 'append'
+        Accessibility.Announcer.speak('Jai shri raam', { append: true })
+        Accessibility.Announcer.speak('This is the announcment which we are waiting for', { append: true })
+        Registry.setTimeout(() => {
+            // Demo for announcer's cancel method
+            Accessibility.Announcer.cancel()
+        }, 6500);
     }
 
     _handleRight(){
@@ -96,5 +107,15 @@ export default class Search extends Lightning.Component{
 
     pageTransition(){
         return "left"
+    }
+
+    get title() {
+        return 'Search'
+    }
+    get announce() {
+        return 'Search page'
+    }
+    get announceContext() {
+        return 'Search page has arrived'
     }
 }

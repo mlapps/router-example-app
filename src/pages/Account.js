@@ -87,4 +87,14 @@ export default class Account extends Lightning.Component{
     pageTransition(){
         return "left";
     }
+
+    get title() {
+        return 'Account'
+    }
+    get announce() {
+        return 'Account page'
+    }
+    get announceContext() {
+        return 'Press UP or DOWN to test Account methods'
+    }
 }

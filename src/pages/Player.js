@@ -119,4 +119,14 @@ export default class Player extends Lightning.Component{
         return "up";
     }
 
+    get title() {
+        return 'Player'
+    }
+    get announce() {
+        return 'Player page'
+    }
+    get announceContext() {
+        return 'Player page has arrived'
+    }
+
 }

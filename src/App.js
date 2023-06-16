@@ -1,5 +1,7 @@
 // first thing is we import the Router from the SDK
 import {Router,Utils} from '@lightningjs/sdk';
+import { Accessibility } from '@lightningjs/sdk'
+
 // import all the configured routes
 import routes from "./lib/routes";
 // import the actual Widget Components
@@ -58,5 +60,10 @@ export default class App extends Router.App{
 
     _handleAppClose(){
         this.application.closeApp();
+    }
+
+    _focusChange() {
+        //Initialize announcer here
+        Accessibility.Announcer.onFocusChange(this.application._focusPath)
     }
 }
